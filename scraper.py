@@ -211,6 +211,9 @@ def build_rss(items_data: list, existing_items: dict) -> str:
 
     # Convert to string via minidom for pretty printing, then inject CDATA
     rough = ET.tostring(rss, encoding="unicode", xml_declaration=False)
+    # Fix namespace prefixes — ElementTree may use ns0/ns1 despite register_namespace
+    rough = rough.replace("xmlns:ns0=", "xmlns:atom=").replace("ns0:", "atom:")
+    rough = rough.replace("xmlns:ns1=", "xmlns:dc=").replace("ns1:", "dc:")
     # Inject CDATA sections
     dom = minidom.parseString(rough)
     for desc_node in dom.getElementsByTagName("description"):
