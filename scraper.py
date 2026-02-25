@@ -163,6 +163,10 @@ def build_rss(items_data: list, existing_items: dict) -> str:
     ATOM_NS = "http://www.w3.org/2005/Atom"
     DC_NS = "http://purl.org/dc/elements/1.1/"
 
+    # Register prefixes so ElementTree uses "atom" / "dc" instead of "ns0" / "ns1"
+    ET.register_namespace("atom", ATOM_NS)
+    ET.register_namespace("dc", DC_NS)
+
     rss = ET.Element("rss", version="2.0")
     rss.set("xmlns:dc", DC_NS)
     rss.set("xmlns:atom", ATOM_NS)
