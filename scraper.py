@@ -169,7 +169,7 @@ def build_rss(items_data: list, existing_items: dict) -> str:
 
     rss = ET.Element("rss", version="2.0")
     rss.set("xmlns:dc", DC_NS)
-    rss.set("xmlns:atom", ATOM_NS)
+    # Don't manually set xmlns:atom — register_namespace + QName handles it
 
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text = FEED_TITLE
